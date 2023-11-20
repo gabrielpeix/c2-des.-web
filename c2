@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo de Cores</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .color-box {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      margin: 5px;
+      border: 1px solid #000;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  // 1. Capturar os nomes de todas as cores do HTML
+  const allColors = [
+    'red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'brown', 'gray', 'black',
+    // Adicione mais cores conforme necessário
+  ];
+
+  // 2. Criar um subvetor com pelo menos 10 cores
+  const selectedColors = allColors.slice(0, 10);
+
+  // 3. Mostrar as cores selecionadas para o usuário
+  selectedColors.forEach(color => {
+    const colorBox = document.createElement('div');
+    colorBox.classList.add('color-box');
+    colorBox.style.backgroundColor = color;
+    colorBox.addEventListener('click', () => startGame(color));
+    document.body.appendChild(colorBox);
+  });
+
+  // 4. Fazer o computador selecionar uma cor aleatória
+  const computerChoice = selectedColors[Math.floor(Math.random() * selectedColors.length)];
+
+  // 5. O jogador terá 3 tentativas para adivinhar a cor.
+  let attemptsLeft = 3;
+
+  function startGame(selectedColor) {
+    // 6. Se acertar a cor nas 3 tentativas, o background da página web deverá ficar da mesma cor adivinhada.
+    if (selectedColor === computerChoice) {
+      document.body.style.backgroundColor = selectedColor;
+      alert('Parabéns! Você acertou!');
+    } else {
+      // 7. Se não acertar, uma tentativa é consumida até que o jogador tente três vezes.
+      attemptsLeft--;
+
+      if (attemptsLeft === 0) {
+        // Se errar todas as vezes, o jogo acaba, o jogador perde e o computador fala qual era a cor escolhida.
+        alert(`Você perdeu! A cor era: ${computerChoice}`);
+      } else {
+        alert(`Tente novamente! Tentativas restantes: ${attemptsLeft}`);
+      }
+    }
+  }
+</script>
+
+</body>
+</html>
